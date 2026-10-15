@@ -1,0 +1,171 @@
+{
+  "initial_equity": 100000,
+  "final_equity": 133231.54512582783,
+  "net_return": 0.33231545125827844,
+  "annualized_return": 0.07474902324491106,
+  "max_drawdown": 0.18095635753878325,
+  "sharpe_zero_risk_free": 0.7173722416032361,
+  "annualized_volatility": 0.1087541634491793,
+  "average_exposure": 0.5879321229082596,
+  "fills": 1843,
+  "commissions": 1843.0,
+  "slippage_cost": 1240.2074446676656,
+  "distributions_not_reinvested": 3098.3600000000006,
+  "ending_trading_cash": 52453.18680429464,
+  "config": {
+    "fast": 20,
+    "slow": 60,
+    "initial_cash": 100000,
+    "allocation": 0.2,
+    "commission_per_share": 0.005,
+    "minimum_commission": 1.0,
+    "slippage_bps": 5.0
+  },
+  "start": "2022-01-03",
+  "end": "2025-12-31",
+  "bars": 1003,
+  "universe": [
+    "AAPL",
+    "AMZN",
+    "JNJ",
+    "JPM",
+    "MSFT"
+  ],
+  "ending_positions": {
+    "AAPL": 95.0,
+    "AMZN": 0.0,
+    "JNJ": 126.0,
+    "JPM": 80.0,
+    "MSFT": 0.0
+  },
+  "benchmark": {
+    "initial_equity": 100000,
+    "final_equity": 155799.43952619936,
+    "net_return": 0.5579943952619937,
+    "annualized_return": 0.1178446693789934,
+    "max_drawdown": 0.24258925062712966,
+    "sharpe_zero_risk_free": 0.7155696603583038,
+    "annualized_volatility": 0.17775770468791163,
+    "average_exposure": 0.942126467917205,
+    "fills": 5,
+    "commissions": 5.0,
+    "slippage_cost": 48.17734086607925,
+    "distributions_not_reinvested": 5652.750000000001,
+    "ending_trading_cash": 3592.140926956188
+  },
+  "benchmark_definition": "equal-weight buy-and-hold; same fees/slippage; distributions not reinvested",
+  "liquidated_at_end": false,
+  "rejected_orders": 0,
+  "distribution_policy": "ex-date entitlement segregated; never available for purchases",
+  "fractional_policy": "whole-share purchases; split-generated fractions may be sold",
+  "signal_basis": "forward-only total-return index; previous close -> next open",
+  "stage": "holdout",
+  "experiment": {
+    "protocol_sha256": "c5e909f99c5dfff63429b51c3bda1276342def648472f684e79db4ea58a426d6",
+    "code_sha256": "e5f8de8b2a0c67032d1280bea611ee310474b406ae06fc26eca89abb25f379d3",
+    "data_manifest_sha256": "066b336bf7b94babfcfc236a125bed4c79ff72f1b61af51caccdafb952ed5dc7",
+    "frozen_at_utc": "2026-10-15T19:58:28.825155+00:00",
+    "protocol": {
+      "schema_version": 1,
+      "universe": [
+        "AAPL",
+        "MSFT",
+        "AMZN",
+        "JPM",
+        "JNJ"
+      ],
+      "universe_policy": "Fixed present-day survivors; conclusions apply only to this basket, with survivorship/selection bias",
+      "data_source": "Yahoo chart snapshot as a provisional research source; replaceable with explicit-action CSV",
+      "history_start": "2009-01-01",
+      "history_end_exclusive": "2026-01-01",
+      "periods": {
+        "development": {
+          "start": "2010-01-01",
+          "end_exclusive": "2019-01-01"
+        },
+        "validation": {
+          "start": "2019-01-01",
+          "end_exclusive": "2022-01-01"
+        },
+        "holdout": {
+          "start": "2022-01-01",
+          "end_exclusive": "2026-01-01"
+        }
+      },
+      "strategy": {
+        "fast": 20,
+        "slow": 60,
+        "initial_cash": 100000,
+        "allocation": 0.2,
+        "commission_per_share": 0.005,
+        "minimum_commission": 1.0,
+        "slippage_bps": 5.0
+      },
+      "execution": "Daily target rebalance at next session open; long only; no borrowing; sell before buying; proportional allocation of shared cash",
+      "corporate_actions": "As-traded OHLC; explicit splits; ex-date distributions segregated and never reinvested; no use of unknown payment dates",
+      "benchmark": "Equal-weight buy-and-hold of the same five stocks; identical initial capital and transaction costs; distributions not reinvested",
+      "evaluation": "Fixed rules without parameter optimization; each period resets capital and positions, using earlier bars only for signal warmup",
+      "holdout_policy": "Freeze code, protocol and snapshot hashes before evaluation; never select parameters from holdout results",
+      "confirmed_in_chat": "2026-10-15: five-stock starter universe and period split accepted; provisional public data source to be revisited later"
+    },
+    "parameter_search": "none",
+    "holdout_already_observed": true,
+    "compatibility_only": true,
+    "note": "\u8de8\u5e73\u53f0\u517c\u5bb9\u7248\u672c\uff1a\u4ee3\u7801\u6821\u9a8c\u8def\u5f84\u7edf\u4e00\u4f7f\u7528\u6b63\u659c\u6760\uff1b\u5f15\u64ce\u3001\u4fe1\u53f7\u3001\u8d39\u7528\u3001\u6570\u636e\u548c\u53c2\u6570\u5747\u672a\u4fee\u6539\uff0c\u65e7\u6700\u7ec8\u68c0\u9a8c\u533a\u95f4\u5df2\u88ab\u67e5\u770b\u3002",
+    "parent_frozen_file": "research/frozen-20261015-zh.json",
+    "parent_frozen_sha256": "b619d280c7df29eb786db078eeb76852f082d7b201683c71c2c1d3af52610953",
+    "source_archive": "research/source-before-portable-20261015.zip",
+    "changed_existing_source_files": [
+      "src/myquant/study.py"
+    ]
+  },
+  "data_manifest": {
+    "schema_version": 1,
+    "source": "Yahoo chart daily snapshots",
+    "status": "complete",
+    "retrieved_at_utc": "2026-10-15T13:57:16.944946+00:00",
+    "start": "2009-01-01",
+    "end_exclusive": "2026-01-01",
+    "price_basis": "as_traded",
+    "symbols": {
+      "AAPL": {
+        "csv_sha256": "a983239e1b0b1e797e91f411f326824a541fc7a7d16e29d4f2e870dbb28935c5",
+        "raw_sha256": "fdca6e9ae8eff38bb7b1cb8a35a108a6ee9923db570d9cb0bbb86ec58eb4195d",
+        "bars": 4276,
+        "distribution_events": 54,
+        "split_events": 2
+      },
+      "MSFT": {
+        "csv_sha256": "756d9d5effc6e84515b1851ff31f726b721e34e886415e0ae8885f072888740a",
+        "raw_sha256": "2783e0cb0377382198599a7d1cd1882255334aae3b7951efd214400080c5c3fc",
+        "bars": 4276,
+        "distribution_events": 68,
+        "split_events": 0
+      },
+      "AMZN": {
+        "csv_sha256": "5614092c4ed235d917d26291fbc84e3c3e2db74180d2aa21583cf1b6bbd9cacb",
+        "raw_sha256": "35982197b7295a91153f403b4b159f288284f0c7509ceb49b891ecb5bc276748",
+        "bars": 4276,
+        "distribution_events": 0,
+        "split_events": 1
+      },
+      "JPM": {
+        "csv_sha256": "66d79cfb6a9225743f2f581cd149e52c10b2de09e7c5a4bec95f0ec86dbf0403",
+        "raw_sha256": "3def9d003ba817bbd6f2b29c98dbe626be692b647b3472a948e4fd4dbf979ac2",
+        "bars": 4276,
+        "distribution_events": 68,
+        "split_events": 0
+      },
+      "JNJ": {
+        "csv_sha256": "86cf6b7e7590809b9212650ea07ae897e60510e69ae2d164bf4fc41660c59139",
+        "raw_sha256": "34d7ee28b5f1d495bbf9e34979a99d059453dea0ecefde5ee78096ffc05ee45c",
+        "bars": 4276,
+        "distribution_events": 68,
+        "split_events": 0
+      }
+    },
+    "errors": {}
+  },
+  "selection_bias": "Fixed present-day survivors; conclusions apply only to this basket, with survivorship/selection bias",
+  "capital_policy": "Independent reset for each period; do not concatenate period equity levels"
+}

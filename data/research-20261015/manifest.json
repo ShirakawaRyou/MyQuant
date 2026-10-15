@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "source": "Yahoo chart daily snapshots",
+  "status": "complete",
+  "retrieved_at_utc": "2026-10-15T13:57:16.944946+00:00",
+  "start": "2009-01-01",
+  "end_exclusive": "2026-01-01",
+  "price_basis": "as_traded",
+  "symbols": {
+    "AAPL": {
+      "csv_sha256": "a983239e1b0b1e797e91f411f326824a541fc7a7d16e29d4f2e870dbb28935c5",
+      "raw_sha256": "fdca6e9ae8eff38bb7b1cb8a35a108a6ee9923db570d9cb0bbb86ec58eb4195d",
+      "bars": 4276,
+      "distribution_events": 54,
+      "split_events": 2
+    },
+    "MSFT": {
+      "csv_sha256": "756d9d5effc6e84515b1851ff31f726b721e34e886415e0ae8885f072888740a",
+      "raw_sha256": "2783e0cb0377382198599a7d1cd1882255334aae3b7951efd214400080c5c3fc",
+      "bars": 4276,
+      "distribution_events": 68,
+      "split_events": 0
+    },
+    "AMZN": {
+      "csv_sha256": "5614092c4ed235d917d26291fbc84e3c3e2db74180d2aa21583cf1b6bbd9cacb",
+      "raw_sha256": "35982197b7295a91153f403b4b159f288284f0c7509ceb49b891ecb5bc276748",
+      "bars": 4276,
+      "distribution_events": 0,
+      "split_events": 1
+    },
+    "JPM": {
+      "csv_sha256": "66d79cfb6a9225743f2f581cd149e52c10b2de09e7c5a4bec95f0ec86dbf0403",
+      "raw_sha256": "3def9d003ba817bbd6f2b29c98dbe626be692b647b3472a948e4fd4dbf979ac2",
+      "bars": 4276,
+      "distribution_events": 68,
+      "split_events": 0
+    },
+    "JNJ": {
+      "csv_sha256": "86cf6b7e7590809b9212650ea07ae897e60510e69ae2d164bf4fc41660c59139",
+      "raw_sha256": "34d7ee28b5f1d495bbf9e34979a99d059453dea0ecefde5ee78096ffc05ee45c",
+      "bars": 4276,
+      "distribution_events": 68,
+      "split_events": 0
+    }
+  },
+  "errors": {}
+}

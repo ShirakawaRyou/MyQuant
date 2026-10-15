@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "myquant"
+version = "0.2.0"
+description = "Cloud-only daily US equity research with corporate actions and held-out evaluation"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "matplotlib>=3.9,<4",
+  "numpy>=2.2,<3",
+  "pandas>=2.2,<3",
+  "pandas-market-calendars>=5,<6",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+myquant = "myquant.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

@@ -1,0 +1,30 @@
+name: Windows local smoke
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  local:
+    runs-on: windows-latest
+    env:
+      PYTHONUTF8: '1'
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv==0.12.23
+      - run: uv sync --frozen
+      - run: uv run --frozen pytest -q
+      - run: uv sync --frozen --project services/dashboard
+      - name: Native Windows process and login checks
+        run: uv run --frozen --project services/dashboard pytest services/dashboard/tests/test_local.py -q
+      - name: Parse scripts using Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          Get-ChildItem windows -Filter *.ps1 | ForEach-Object {
+            $Tokens = $null
+            $Problems = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$Tokens, [ref]$Problems) | Out-Null
+            if ($Problems.Count -gt 0) { throw ($Problems | Out-String) }
+          }

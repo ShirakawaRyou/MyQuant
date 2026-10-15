@@ -1,0 +1,106 @@
+name: myquant-paper
+services:
+  gateway:
+    image: ${GATEWAY_IMAGE:-ghcr.io/gnzsnz/ib-gateway:10.50.1f@sha256:fc7aac782c1ee4b17c9ace1798f5e0caf38aac99f69eb72712a49059bd69df7a}
+    restart: unless-stopped
+    environment:
+      TWS_USERID: ${IBKR_USERNAME:?Set IBKR_USERNAME in the server-only .env}
+      TWS_PASSWORD_FILE: /run/secrets/ibkr_password
+      TRADING_MODE: paper
+      READ_ONLY_API: ${IBKR_READ_ONLY_API:-yes}
+      TWS_ACCEPT_INCOMING: accept
+      TWS_MASTER_CLIENT_ID: "71"
+      TWS_SETTINGS_PATH: /home/ibgateway/tws_settings
+      TIME_ZONE: America/New_York
+      TWOFA_TIMEOUT_ACTION: exit
+      RELOGIN_AFTER_TWOFA_TIMEOUT: "no"
+      ALLOW_BLIND_TRADING: "no"
+    secrets:
+      - ibkr_password
+    volumes:
+      - gateway_settings:/home/ibgateway/tws_settings
+    networks: [broker]
+    mem_limit: 2g
+  worker:
+    image: myquant-dashboard:0.1.0
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    command: [myquant-worker]
+    restart: unless-stopped
+    environment:
+      DASHBOARD_BASE_URL: https://${DASHBOARD_DOMAIN:?Set a public HTTPS domain}
+      IBKR_HOST: gateway
+      IBKR_PORT: "4004"
+      IBKR_CLIENT_ID: "71"
+      IBKR_PAPER_ACCOUNT: ${IBKR_PAPER_ACCOUNT:-}
+      PAPER_ORDERS_ENABLED: ${PAPER_ORDERS_ENABLED:-false}
+      WORKER_POLL_SECONDS: ${WORKER_POLL_SECONDS:-60}
+    volumes:
+      - trading:/app/runtime/trading
+    networks: [broker, app]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 768m
+    healthcheck:
+      test: [CMD, python, -c, "import sqlite3,json,datetime; d=sqlite3.connect('file:/app/runtime/trading/paper.sqlite3?mode=ro',uri=True); v=json.loads(d.execute(\"select value from meta where key='worker'\").fetchone()[0]); assert (datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.fromisoformat(v['heartbeat_at'])).total_seconds()<300"]
+      interval: 30s
+      start_period: 180s
+      timeout: 5s
+      retries: 3
+  web:
+    image: myquant-dashboard:0.1.0
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    environment:
+      DASHBOARD_BASE_URL: https://${DASHBOARD_DOMAIN:?Set a public HTTPS domain}
+    volumes:
+      - trading:/app/runtime/trading:ro
+      - auth:/app/runtime/auth
+    depends_on:
+      worker:
+        condition: service_healthy
+    networks: [app]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 384m
+    healthcheck:
+      test: [CMD, python, -c, "from urllib.request import urlopen; assert urlopen('http://127.0.0.1:8090/healthz',timeout=3).status==200"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  caddy:
+    image: caddy:2.10.2-alpine@sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d
+    restart: unless-stopped
+    environment:
+      DASHBOARD_DOMAIN: ${DASHBOARD_DOMAIN:?Set a public HTTPS domain}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - certificates:/data
+      - caddy_config:/config
+    depends_on: [web]
+    networks: [app, edge]
+    mem_limit: 128m
+volumes:
+  gateway_settings:
+  trading:
+  auth:
+  certificates:
+  caddy_config:
+networks:
+  broker:
+  app:
+    internal: true
+  edge:
+secrets:
+  ibkr_password:
+    file: ./secrets/ibkr_password

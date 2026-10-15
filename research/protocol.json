@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "universe": ["AAPL", "MSFT", "AMZN", "JPM", "JNJ"],
+  "universe_policy": "Fixed present-day survivors; conclusions apply only to this basket, with survivorship/selection bias",
+  "data_source": "Yahoo chart snapshot as a provisional research source; replaceable with explicit-action CSV",
+  "history_start": "2009-01-01",
+  "history_end_exclusive": "2026-01-01",
+  "periods": {
+    "development": {"start": "2010-01-01", "end_exclusive": "2019-01-01"},
+    "validation": {"start": "2019-01-01", "end_exclusive": "2022-01-01"},
+    "holdout": {"start": "2022-01-01", "end_exclusive": "2026-01-01"}
+  },
+  "strategy": {
+    "fast": 20,
+    "slow": 60,
+    "initial_cash": 100000,
+    "allocation": 0.20,
+    "commission_per_share": 0.005,
+    "minimum_commission": 1.0,
+    "slippage_bps": 5.0
+  },
+  "execution": "Daily target rebalance at next session open; long only; no borrowing; sell before buying; proportional allocation of shared cash",
+  "corporate_actions": "As-traded OHLC; explicit splits; ex-date distributions segregated and never reinvested; no use of unknown payment dates",
+  "benchmark": "Equal-weight buy-and-hold of the same five stocks; identical initial capital and transaction costs; distributions not reinvested",
+  "evaluation": "Fixed rules without parameter optimization; each period resets capital and positions, using earlier bars only for signal warmup",
+  "holdout_policy": "Freeze code, protocol and snapshot hashes before evaluation; never select parameters from holdout results",
+  "confirmed_in_chat": "2026-10-15: five-stock starter universe and period split accepted; provisional public data source to be revisited later"
+}

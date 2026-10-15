@@ -1,0 +1,61 @@
+{
+  "protocol_sha256": "c5e909f99c5dfff63429b51c3bda1276342def648472f684e79db4ea58a426d6",
+  "code_sha256": "b663875de8556a13f0293227a8046729f5c0010d40e862f2427e84bfa50a011a",
+  "data_manifest_sha256": "066b336bf7b94babfcfc236a125bed4c79ff72f1b61af51caccdafb952ed5dc7",
+  "frozen_at_utc": "2026-10-15T19:43:49.528779+00:00",
+  "protocol": {
+    "schema_version": 1,
+    "universe": [
+      "AAPL",
+      "MSFT",
+      "AMZN",
+      "JPM",
+      "JNJ"
+    ],
+    "universe_policy": "Fixed present-day survivors; conclusions apply only to this basket, with survivorship/selection bias",
+    "data_source": "Yahoo chart snapshot as a provisional research source; replaceable with explicit-action CSV",
+    "history_start": "2009-01-01",
+    "history_end_exclusive": "2026-01-01",
+    "periods": {
+      "development": {
+        "start": "2010-01-01",
+        "end_exclusive": "2019-01-01"
+      },
+      "validation": {
+        "start": "2019-01-01",
+        "end_exclusive": "2022-01-01"
+      },
+      "holdout": {
+        "start": "2022-01-01",
+        "end_exclusive": "2026-01-01"
+      }
+    },
+    "strategy": {
+      "fast": 20,
+      "slow": 60,
+      "initial_cash": 100000,
+      "allocation": 0.2,
+      "commission_per_share": 0.005,
+      "minimum_commission": 1.0,
+      "slippage_bps": 5.0
+    },
+    "execution": "Daily target rebalance at next session open; long only; no borrowing; sell before buying; proportional allocation of shared cash",
+    "corporate_actions": "As-traded OHLC; explicit splits; ex-date distributions segregated and never reinvested; no use of unknown payment dates",
+    "benchmark": "Equal-weight buy-and-hold of the same five stocks; identical initial capital and transaction costs; distributions not reinvested",
+    "evaluation": "Fixed rules without parameter optimization; each period resets capital and positions, using earlier bars only for signal warmup",
+    "holdout_policy": "Freeze code, protocol and snapshot hashes before evaluation; never select parameters from holdout results",
+    "confirmed_in_chat": "2026-10-15: five-stock starter universe and period split accepted; provisional public data source to be revisited later"
+  },
+  "parameter_search": "none",
+  "note": "中文展示版本；只改报告与命令行输出，策略、数据、参数与区间均沿用原记录。最终区间已经看过，不属于新的未见样本。",
+  "presentation_only": true,
+  "holdout_already_observed": true,
+  "parent_frozen_file": "research/frozen-20261015.json",
+  "parent_frozen_sha256": "1d947ec63d993ce18278d45a054616b4e073b5865f42d132a8a439c22d295d58",
+  "parent_code_sha256": "05f37146f63628d13da9718dd96078daf8cb6b737c2cd2e588db2523029b42a2",
+  "source_archive": "research/source-before-chinese-20261015.zip",
+  "changed_existing_source_files": [
+    "src/myquant/cli.py",
+    "src/myquant/reporting.py"
+  ]
+}

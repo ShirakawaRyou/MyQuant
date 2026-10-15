@@ -1,0 +1,6 @@
+{
+  "container_authentication": true,
+  "trade_volume_readonly": true,
+  "worker_progresses_without_web": true,
+  "session_and_ledger_survive_web_replacement": true
+}
